@@ -5,24 +5,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CFRPS</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #F4F4ED;
+            padding: 15px 30px;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text {
+            color: #4A80B8;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: #4988C4;
+            color: white;
+        }
+
+        .active {
+            background: #4988C4;
+            color: white;
+        }
+
+        .hero {
+            height: calc(100vh - 80px);
+
+            background:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.45),
+                    rgba(255, 255, 255, 0.45)
+                ),
+                url("p1.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+        }
+
+        .hero-logo {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            color: #0E4177;
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+
+        .hero-btn {
+            background: #C9D8F7;
+            color: #222;
+
+            padding: 15px 40px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s ease;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+            background: white;
+        }
+
+    </style>
 </head>
 
 <body>
-    
+
     <header>
-        <img src="LOGO.png" alt="CFRPS-LOGO" width="100" height="100">
-        <h1>Cainta Flood Rescue Prioritization System</h1>
-        <nav>
-            <a href="TAB1-home.html">HOME</a> |
-            <a href="TAB2-about-us.html">ABOUT US</a> |
-            <a href="TAB3-hotlines.html">HOTLINES</a> |
-            <a href="TAB4-login.html">LOGIN</a>
+
+        <nav class="nav-bar">
+
+            <div class="logo-section">
+
+                <img src="logo.png" alt="CFRPS Logo">
+
+                <div class="logo-text">
+                    CAINTA FLOOD RESCUE PRIORITIZATION SYSTEM
+                </div>
+
+            </div>
+
+            <ul class="nav-menu">
+
+                <li>
+                    <a href="TAB1-home.html" class="nav-link active">
+                        HOME
+                    </a>
+                </li>
+
+                <li>
+                    <a href="TAB2-about-us.html" class="nav-link">
+                        ABOUT US
+                    </a>
+                </li>
+
+                <li>
+                    <a href="TAB3-hotlines.html" class="nav-link">
+                        HOTLINES
+                    </a>
+                </li>
+
+                <li>
+                    <a href="TAB4-login.html" class="nav-link">
+                        LOGIN
+                    </a>
+                </li>
+
+            </ul>
+
         </nav>
+
     </header>
-    
-    <br>
-    <p>Home page</p>
-    <a href="PAGE1-enter-location.html">START HERE</a>
+
+    <section class="hero">
+
+        <img src="logo.png" alt="CFRPS Logo" class="hero-logo">
+
+        <h1 class="hero-title">
+            CFRPS: CAINTA FLOOD RESCUE <br>
+            PRIORITIZATION SYSTEM
+        </h1>
+
+        <a href="PAGE2-risk-assessment.html" class="hero-btn">
+            CLICK HERE
+        </a>
+
+    </section>
 
 </body>
 
