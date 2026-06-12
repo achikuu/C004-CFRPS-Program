@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFRPS</title>
+    <title>CFRPS - Risk Analysis</title>
 
     <link rel="stylesheet" href="header-stylesheet.css">
 </head>
@@ -36,12 +36,72 @@
 
         </nav>
     </header>
-    
-    <br>
-    <p>Risk Analysis page</p>
 
-    <a href="PAGE2-risk-assessment.html">Back</a>
-    <a href="PAGE4-save-information.html">Next</a>
+    <main class="main-container">
+        <div class="page-header">
+            <h2>Risk Analysis &amp; Decision Dashboard</h2>
+            <p>Calculated system tiers and prioritized action protocols based on household vulnerabilities.</p>
+        </div>
+
+        <div class="blueprint-note">
+            <strong>ℹ️ System Preview Note:</strong> Below are the 5 potential prioritized decision profiles. When connected to data metrics, the system dynamically displays the exact matching condition tier.
+        </div>
+
+        <div class="status-card">
+            <span class="badge badge-critical">Critical Threat</span>
+            <h3 class="decision-title">CRITICAL RESCUE PRIORITY (LIFE-THREATENING)</h3>
+            <div class="protocol-box">
+                <strong>Condition Checklist:</strong> Priority rescue is requested, the household cannot evacuate on its own, or an unaccompanied minor is stranded.
+                <br><br>
+                <strong>Action Protocol:</strong> Immediate deployment of tactical water rescue craft and high-clearance emergency assets to coordinates.
+            </div>
+        </div>
+
+        <div class="status-card">
+            <span class="badge badge-medical">Medical Urgent</span>
+            <h3 class="decision-title">MEDICAL PRIORITY RESCUE</h3>
+            <div class="protocol-box">
+                <strong>Condition Checklist:</strong> An immediate medical emergency exists, or vulnerable occupants (elderly/disabled) are present without self-evacuation capability.
+                <br><br>
+                <strong>Action Protocol:</strong> Alert and dispatch a specialized medical response team accompanied by standard rescue services.
+            </div>
+        </div>
+
+        <div class="status-card">
+            <span class="badge badge-standard">Elevated Risk</span>
+            <h3 class="decision-title">STANDARD PRIORITY RESCUE (HIGH-RISK ZONE)</h3>
+            <div class="protocol-box">
+                <strong>Condition Checklist:</strong> Household is within a low-lying zone near an active river system and lacks personal vehicle transport assets.
+                <br><br>
+                <strong>Action Protocol:</strong> Log into the primary BDRRMC evacuation routing queue for systematic municipal team deployment.
+            </div>
+        </div>
+
+        <div class="status-card">
+            <span class="badge badge-early">Early Warning</span>
+            <h3 class="decision-title">TRIGGER PROACTIVE EVACUATION WARNING</h3>
+            <div class="protocol-box">
+                <strong>Condition Checklist:</strong> An official warning has been broadcast, and the household resides in a low-lying area or river proximity but is not yet trapped.
+                <br><br>
+                <strong>Action Protocol:</strong> Push automated SMS advisory alerts and activate local neighborhood sirens for early preparation.
+            </div>
+        </div>
+
+        <div class="status-card">
+            <span class="badge badge-transit">Monitored</span>
+            <h3 class="decision-title">LOG AS SELF-EVACUATING / IN TRANSIT</h3>
+            <div class="protocol-box">
+                <strong>Condition Checklist:</strong> Household possesses a functional transport vehicle and has confirmed preparation status.
+                <br><br>
+                <strong>Action Protocol:</strong> Register household route trajectory as 'Self-Evacuated' to clear administrative field resources for more vulnerable cases.
+            </div>
+        </div>
+
+        <div class="action-routing">
+            <a href="PAGE2-risk-assessment.html" class="btn btn-back">Back</a>
+            <a href="PAGE4-save-information.html" class="btn btn-next">Next</a>
+        </div>
+    </main>
 
 </body>
 
