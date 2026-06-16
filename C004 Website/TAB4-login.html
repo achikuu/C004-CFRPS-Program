@@ -1,45 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFRPS</title>
+    <title>Secure Portal Access - One Cainta</title>
+    <style>
+        /* --- BRAND DESIGN PALETTE CONTEXT --- */
+        :root {
+            --cainta-dark-navy: #0F2854;    /* Primary Header & Strong Buttons */
+            --cainta-royal-blue: #1C4D8D;   /* Secondary Navigation Elements */
+            --cainta-mid-blue: #4988C4;     /* Interactive Hover States & Accents */
+            --cainta-soft-aqua: #BDE8F5;    /* Subtle Background Fills & Borders */
+            --body-bg: #f4f7fa;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
 
-    <link rel="stylesheet" href="header-stylesheet.css">
+        /* --- UPDATED GLOBAL RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- UPDATED NEW HEADER STYLES --- */
+        header {
+            background: #BDE8F5;
+        }
+
+        header .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 35px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Legacy visual anchor scaled to fit nicely inside the new logo flex alignment */
+        .gov-seal-placeholder {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--cainta-dark-navy), var(--cainta-royal-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 0.70rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 4px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-bar .logo-text {
+            color: black;
+            margin-left: -10px;
+        }
+
+        .nav-bar .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--cainta-dark-navy);
+        }
+
+        .nav-bar .logo-text h2 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .nav-bar .nav-menu {
+            display: flex;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .nav-bar .nav-menu .nav-link {
+            padding: 10px 20px;
+            color: black;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s ease-in-out;
+        }
+
+        .nav-bar .nav-menu .nav-link:hover,
+        .nav-bar .nav-menu .nav-link.active {
+            color: white;
+            background: #4988C4;
+        }
+
+        /* --- ACCOUNT AUTHENTICATION PORTAL CORE VIEW --- */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(189, 232, 245, 0.3) 100%);
+        }
+
+        .auth-card-scaffold {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 16px;
+            padding: 40px 35px;
+            border: 1px solid rgba(73, 136, 196, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(15, 40, 84, 0.1), 
+                        0 8px 16px -6px rgba(15, 40, 84, 0.05);
+        }
+
+        .auth-card-head {
+            text-align: left;
+            margin-bottom: 28px;
+        }
+
+        .auth-card-head h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--cainta-dark-navy);
+            letter-spacing: -0.5px;
+        }
+
+        .auth-card-head p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--cainta-royal-blue);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control-input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: #f8fafc;
+            outline: none;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .form-control-input:focus {
+            border-color: var(--cainta-mid-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(73, 136, 196, 0.15);
+        }
+
+        .form-control-input.pass-field {
+            padding-right: 44px;
+        }
+
+        .password-reveal-trigger {
+            position: absolute;
+            right: 14px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-reveal-trigger:hover {
+            color: var(--cainta-royal-blue);
+        }
+
+        .password-reveal-trigger svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .action-container-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn-portal-action {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .btn-portal-action.btn-submit {
+            background-color: var(--cainta-dark-navy);
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(15, 40, 84, 0.2);
+        }
+
+        .btn-portal-action.btn-submit:hover {
+            background-color: var(--cainta-royal-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px -2px rgba(15, 40, 84, 0.25);
+        }
+
+        .btn-portal-action.btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-portal-action.btn-cancel {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-portal-action.btn-cancel:hover {
+            background-color: #cbd5e1;
+            color: var(--text-dark);
+        }
+    </style>
 </head>
-
 <body>
-    
-    <header>
-        <nav class="nav-bar">
 
+    <!-- --- NEW STRUCTURAL UI PATTERN --- -->
+    <header>
+        <div class="nav-bar">
             <div class="logo">
-                <img src="assets/LOGO.png" alt="CFRPS-LOGO" width="100" height="100" class="nav-logo">
-                <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+                <div class="gov-seal-placeholder">
+                    CAINTA<br>SEAL
+                </div>
+                <div class="logo-text">
+                    <h1>Municipality of Cainta</h1>
+                    <h2>Flood Rescue Prioritization System (CFRPS)</h2>
+                </div>
             </div>
             
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="TAB1-home.html" class="nav-link">HOME</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB4-login.html" class="nav-link">LOGIN</a> 
-                </li>
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">About Us</a></li>
+                <li><a href="#" class="nav-link">Hotlines</a></li>
+                <li><a href="#" class="nav-link active">Login / Signup</a></li>
             </ul>
-
-        </nav>
+        </div>
     </header>
-    
-    <br>
-    <p>Login page</p>
+
+    <main>
+        <div class="auth-card-scaffold">
+            <div class="auth-card-head">
+                <h3>Would you like to save this information?</h3>
+                <p>Log in or create accounts to synchronize tracking history.</p>
+            </div>
+
+            <form id="cfrps-auth-form" onsubmit="handlePortalValidation(event)">
+                <div class="form-row">
+                    <label for="identity-input">Municipal Identity Number / Email</label>
+                    <input 
+                        type="text" 
+                        id="identity-input" 
+                        class="form-control-input" 
+                        placeholder="JuanDelaCruz69@gmail.com" 
+                        required
+                    >
+                </div>
+
+                <div class="form-row">
+                    <label for="secret-key-input">Password Account Key</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="secret-key-input" 
+                            class="form-control-input pass-field" 
+                            placeholder="••••••" 
+                            required
+                        >
+                        <button type="button" class="password-reveal-trigger" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                            <!-- Fixed truncated SVG tag safely -->
+                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-container-stack">
+                    <button type="submit" class="btn-portal-action btn-submit">Sign In to Portal</button>
+                    <button type="button" class="btn-portal-action btn-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </main>
 
 </body>
-
 </html>
