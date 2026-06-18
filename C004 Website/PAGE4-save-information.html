@@ -1,60 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFRPS</title>
+    <title>CFRPS - Save Metrics Portal</title>
+    <!-- Google Fonts link added to properly load Poppins styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- BRAND DESIGN PALETTE CONTEXT --- */
+        :root {
+            --cainta-dark-navy: #0F2854;    /* Main Header & Dominant Buttons */
+            --cainta-royal-blue: #1C4D8D;   /* Secondary/Active Navigation Accent */
+            --cainta-mid-blue: #4988C4;     /* Borders & Focus Highlights */
+            --cainta-soft-aqua: #BDE8F5;    /* Subtle Background Fills */
+            --body-bg: #f4f7fa;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
 
-    <link rel="stylesheet" href="header-stylesheet.css">
+        /* --- YOUR REQUESTED CUSTOM CSS BASE AND HEADER RULES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        header {
+            background: #BDE8F5;
+        }
+
+        header .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 35px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-bar .logo-text {
+            color: black;
+            margin-left: -10px;
+        }
+
+        .nav-bar .nav-menu {
+            display: flex;
+            gap: 45px;
+        }
+
+        .nav-bar .nav-menu .nav-link {
+            padding: 10px 20px;
+            color: black;
+            border-radius: 20px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .nav-bar .nav-menu .nav-link:hover {
+            color: white;
+            background: #4988C4;
+        }
+
+        /* Custom adjustments for text content styling elements in the brand area */
+        .title-block h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--cainta-dark-navy);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .title-block h2 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--cainta-royal-blue);
+        }
+
+        .gov-seal-placeholder {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--cainta-dark-navy), var(--cainta-royal-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 4px;
+            border: 2px solid #ffffff;
+        }
+
+        /* --- VIEWPORT DISPLAY MANAGEMENT --- */
+        body {
+            background-color: var(--body-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(189, 232, 245, 0.2) 100%);
+        }
+
+        .portal-pane {
+            display: none;
+            width: 100%;
+            max-width: 460px;
+            animation: paneFadeIn 0.2s ease-out forwards;
+        }
+
+        .portal-pane.active {
+            display: block;
+        }
+
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CARD SCAFFOLD STRUCTURE (SHARED) --- */
+        .card-scaffold {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 45px 35px;
+            border: 1px solid rgba(73, 136, 196, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(15, 40, 84, 0.08);
+            text-align: center;
+        }
+
+        .card-scaffold h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--cainta-dark-navy);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        .card-scaffold p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* --- BUTTON STACK AND FIELDS --- */
+        .action-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s ease-in-out;
+        }
+
+        /* Primary Call-to-Action Blue Button Style */
+        .btn-action.btn-primary-blue {
+            background-color: var(--cainta-royal-blue);
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(28, 77, 141, 0.2);
+        }
+
+        .btn-action.btn-primary-blue:hover {
+            background-color: var(--cainta-dark-navy);
+            transform: translateY(-1px);
+        }
+
+        /* Neutral Soft Gray Button Style */
+        .btn-action.btn-neutral-gray {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-action.btn-neutral-gray:hover {
+            background-color: #cbd5e1;
+            color: var(--text-dark);
+        }
+
+        /* Form Configuration Components (For Login State Pane) */
+        .form-alignment-wrapper {
+            text-align: left;
+        }
+
+        .form-row {
+            margin-bottom: 18px;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--cainta-royal-blue);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control-input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: #f8fafc;
+            outline: none;
+        }
+
+        .form-control-input:focus {
+            border-color: var(--cainta-mid-blue);
+            background-color: #ffffff;
+        }
+    </style>
 </head>
-
 <body>
-    
-    <header>
-        <nav class="nav-bar">
 
+    <!-- UPDATED HEADER COMPONENT WITH INTEGRATED NAV-BAR CLASS -->
+    <header>
+        <div class="nav-bar">
             <div class="logo">
-                <img src="assets/LOGO.png" alt="CFRPS-LOGO" width="100" height="100" class="nav-logo">
-                <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+                <div class="gov-seal-placeholder">CAINTA<br>SEAL</div>
+                <div class="logo-text title-block">
+                    <h1>Municipality of Cainta</h1>
+                    <h2>Flood Rescue Prioritization System (CFRPS)</h2>
+                </div>
             </div>
             
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="TAB1-home.html" class="nav-link">HOME</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a> 
-                </li>
-                <li class="nav-item">
-                    <a href="TAB4-login.html" class="nav-link">LOGIN</a> 
-                </li>
+                <li><button class="nav-link">Home</button></li>
+                <li><button class="nav-link">About Us</button></li>
+                <li><button class="nav-link">Hotlines</button></li>
+                <li><button class="nav-link" style="color: white; background: #4988C4;" id="auth-tab-tracker">Login / Signup</button></li>
             </ul>
-
-        </nav>
+        </div>
     </header>
-    
-    <hr>
-    <br>
 
-    <!---->
-
-    <div>
-
+    <main>
         
+        <!-- ======================================================== -->
+        <!-- STAGE 1: THE INITIAL PROMPT ARCHIVAL DIALOGUE -->
+        <!-- ======================================================== -->
+        <section id="pane-save-prompt" class="portal-pane active">
+            <div class="card-scaffold">
+                <h3>Would you like to save this information?</h3>
+                <p>Archiving your profiling metrics helps the BDRRMC allocate local rescue deployments quickly during sudden environmental flood emergencies.</p>
+                
+                <div class="action-stack">
+                    <!-- Triggers transition to Step 2: Login Page UI -->
+                    <button class="btn-action btn-primary-blue" onclick="navigateToLoginPage()">
+                        Yes - Create Account / Log In
+                    </button>
+                    <!-- Triggers action reset loop -->
+                    <button class="btn-action btn-neutral-gray" onclick="handleRollbackHome()">
+                        Return Home
+                    </button>
+                </div>
+            </div>
+        </section>
 
-    </div>
 
-    <p>Save information page</p>
+        <!-- ======================================================== -->
+        <!-- STAGE 2: THE SECURE ACCESSIBILITY SECURE LOGIN PANEL     -->
+        <!-- ======================================================== -->
+        <section id="pane-secure-login" class="portal-pane">
+            <div class="card-scaffold">
+                <div class="form-alignment-wrapper">
+                    <h3 style="text-align: left; margin-bottom: 6px;">Secure Portal Access</h3>
+                    <p style="text-align: left; margin-bottom: 25px;">Log in or create accounts to synchronize your tracking data parameters securely.</p>
+                    
+                    <form onsubmit="handleFinalValidationSubmit(event)">
+                        <div class="form-row">
+                            <label>Municipal Identity Number / Email</label>
+                            <input type="text" class="form-control-input" placeholder="andee.jimena@gmail.com" required>
+                        </div>
 
-    <a href="PAGE3-risk-analysis.html">Back</a>
-    <br> 
-    <a href="TAB4-login.html">Save Information</a> |
-    <a href="TAB1-home.html">Delete Metrics</a>
+                        <div class="form-row" style="margin-bottom: 30px;">
+                            <label>Password Account Key</label>
+                            <input type="password" class="form-control-input" placeholder="••••••••" required>
+                        </div>
 
+                        <div class="action-stack">
+                            <button type="submit" class="btn-action btn-primary-blue">
+                                Sign In / Validate Account Registration
+                            </button>
+                            <button type="button" class="btn-action btn-neutral-gray" onclick="navigateToPromptPage()">
+                                Back to Selection
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOW MANAGEMENT OPERATIONS SCRIPT -->
+    <script>
+        // Transition workflow forward to the account validation pane
+        function navigateToLoginPage() {
+            document.getElementById('pane-save-prompt').classList.remove('active');
+            document.getElementById('pane-secure-login').classList.add('active');
+        }
+
+        // Transition workflow back to the saving validation option card
+        function navigateToPromptPage() {
+            document.getElementById('pane-secure-login').classList.remove('active');
+            document.getElementById('pane-save-prompt').classList.add('active');
+        }
+
+        // Submit processor execution logic mockup
+        function handleFinalValidationSubmit(event) {
+            event.preventDefault();
+            alert("Login Successful! Your processed disaster routing metrics have been safely archived.");
+            handleRollbackHome();
+        }
+
+        // Action loop wipe reset routing logic mockup
+        function handleRollbackHome() {
+            alert("Returning to Home View State.");
+            navigateToPromptPage();
+        }
+    </script>
 </body>
-
 </html>
