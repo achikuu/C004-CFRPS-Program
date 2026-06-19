@@ -6,6 +6,17 @@
     <title>CFRPS - About Us</title>
 
     <link rel="stylesheet" href="header-stylesheet.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "Mc7JneCctspVoUWpk",
+        });
+      })();
+    </script>
   </head>
 
   <body>
@@ -114,13 +125,11 @@
           <h2>CONTACT US</h2>
 
           <div class="contact-card-container">
-            <form
-              method="POST"
-              action="https://formsubmit.co/apismarizza123@gmail.com"
-            >
+            <form>
               <div class="form-group">
                 <div class="form-icon-space"></div>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   placeholder="Name"
@@ -132,7 +141,8 @@
               <div class="form-group">
                 <div class="form-icon-space"></div>
                 <input
-                  type="email"
+                  id="email"
+                  type="text"
                   name="email"
                   placeholder="Email"
                   class="user-inputs"
@@ -143,6 +153,8 @@
               <div class="form-group">
                 <div class="form-icon-space"></div>
                 <textarea
+                  id="message"
+                  type="text"
                   name="message"
                   placeholder="Message"
                   class="user-inputs"
@@ -150,9 +162,12 @@
                 ></textarea>
               </div>
 
-              <button type="submit" class="submit-button">Submit</button>
+              <button type="button" class="submit-button" onclick="sendMail()">
+                Submit
+              </button>
             </form>
           </div>
+          <script type="text/javascript" src="scriptforaboutus.js"></script>
         </section>
       </div>
     </main>
