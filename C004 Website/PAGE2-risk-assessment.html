@@ -210,7 +210,9 @@
   });
 
   form.addEventListener("submit", function (event) {
-    const totalChecked = document.querySelector(".binary-input:checked").length;
+    event.preventDefault();
+
+    const totalChecked = form.querySelectorAll(".binary-input:checked").length;
     const p1 = document.getElementById("p1-low-lying").checked;
     const p2 = document.getElementById("p2-priority").checked;
     const p3 = document.getElementById("p3-vulnerable").checked;
@@ -221,16 +223,42 @@
     const p8 = document.getElementById("p8-medical").checked;
     const p9 = document.getElementById("p9-vehicle").checked;
 
+    let targetAction = "PAGE3-risk-analysis.html";
+    let riskLevelText = "Low Risk - Monitor and Prepare";
+
     if (totalChecked >= 9 || (p6 && p8 && p9)) {
-      form.action = "PAGE3-HIGH-RISK-CRITICAL.html";
+        targetAction = "PAGE3-HIGH-RISK-CRITICAL.html";
+        riskLevelText = "High Risk - Critical Priority Rescue";
     } else if (p8) {
-      form.action = "PAGE3-HIGH-RISK-MEDICAL.html";
-    } else if ((p1 && p4) || p2 || p3 || p6 || p7) {
-      form.action = "PAGE3-HIGH-RISK-STANDARD.html";
-    } else if (p1 || p4 || p5) {
-      form.action = "PAGE3-LOW-RISK-TRIGGER.html";
+        targetAction = "PAGE3-HIGH-RISK-MEDICAL.html";
+        riskLevelText = "High Risk - Medical Priority Extraction";
+    } else if ((p1 && p4) || p5 || p2 || p3) {
+        targetAction = "PAGE3-HIGH-RISK-STANDARD.html";
+        riskLevelText = "High Risk - Standard Rescue Deployment";
+    } else if (p6 || p7 || p9) {
+        targetAction = "PAGE3-LOW-RISK-TRIGGER.html";
+        riskLevelText = "Low Risk - Specific Advisory Triggered";
     } else {
-      form.action = "PAGE3-LOW-RISK-LOG.html";
+        targetAction = "PAGE3-LOW-RISK-LOG.html";
+        riskLevelText = "Low Risk - Stable Baseline Profile";
     }
-  });
+
+    const storedBrgy = localStorage.getItem('temp_barangay') || "Unknown Barangay";
+    const storedStreet = localStorage.getItem('temp_street') || "Unknown Street";
+    const timestamp = new Date().toLocaleString();
+
+    let rescueHistory = JSON.parse(localStorage.getItem('rescueHistory')) || [];
+    
+    const newEntry = {
+        barangay: storedBrgy,
+        street: storedStreet,
+        riskClassification: riskLevelText,
+        dateLogged: timestamp
+    };
+
+    rescueHistory.unshift(newEntry);
+    localStorage.setItem('rescueHistory', JSON.stringify(rescueHistory));
+
+    window.location.href = targetAction;
+});
 </script>
