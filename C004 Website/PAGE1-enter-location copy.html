@@ -62,14 +62,14 @@
                 <div class="form-group">
                     <label for="barangay">Barangay</label>
 
-                    <select id="barangay">
+                    <select id="barangay" onchange="changeStreetDropdown(this.value)">
                         <option value="" selected></option>
-                        <option>San Andres</option>
-                        <option>San Juan</option>
-                        <option>San Roque</option>
-                        <option>Santa Rosa</option>
-                        <option>Santo Domingo</option>
-                        <option>Santo Niño</option>
+                        <option value="San Andres">San Andres</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Roque">San Roque</option>
+                        <option value="Santa Rosa">Santa Rosa</option>
+                        <option value="Santo Domingo">Santo Domingo</option>
+                        <option value="Santo Niño">Santo Niño</option>
                     </select>
                 </div>
 
@@ -78,25 +78,83 @@
 
                     <select id="street">
                         <option value="" selected></option>
-                        <option>Ortigas Ave Extension</option>
-                        <option>Imelda / Felix Ave</option>
-                        <option>A. Bonifacio Ave</option>
-                        <option>Vista Verde Subdivision</option>
-                        <option>Greenland Executive Village</option>
                     </select>
                 </div>
             </form>
+                <div id="validationMsg" style="color:red;margin-top:10px;font-weight:bold;"></div>
         </div>
     </div>
 
     <div class="footer-controls">
 
         <a href="TAB1-home.html" class="btn-nav">BACK</a>
-        <a href="PAGE2-risk-assessment.html" class="btn-nav">NEXT</a>
+        <a href="PAGE2-risk-assessment.html" class="btn-nav" onclick="return validateRouting()">NEXT</a>
 
     </div>
 
 </main>
+
+<script>
+    const streetsByBarangay = {
+        "San Andres": ["Planters Subdivision", "New anyo Street", "Cainta Greenland Phase 4", "Filinvest Homes East"],
+        "San Juan": ["Brookside Hills Subdivision", "Velasquez Street", "Sito Parola", "Greenland Subdivision"],
+        "San Roque": ["Marick Subdivision", "Town Proper", "J. Tolentino Street"],
+        "Santa Rosa": ["Suburban Villa", "Imelda Avenue Corridor", "Sito Sta. Elena"],
+        "Santo Domingo": ["Vista Verde Executive Village", "Cypress Village", "Orchard Residential Estate"],
+        "Santo Niño": ["Rizal Avenue", "Mabini Street"]
+    };
+
+    function changeStreetDropdown(barangay) {
+        const streetSelect = document.getElementById('street');
+        // tanggalin ung laman
+        while (streetSelect.firstChild) {
+            streetSelect.removeChild(streetSelect.firstChild);
+        }
+        // add empty option
+        const emptyOpt = document.createElement('option');
+        emptyOpt.value = '';
+        emptyOpt.selected = true;
+        emptyOpt.textContent = '';
+        streetSelect.appendChild(emptyOpt);
+
+        if (!barangay || !streetsByBarangay[barangay]) return;
+
+        streetsByBarangay[barangay].forEach(st => {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = st;
+            streetSelect.appendChild(opt);
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const barangaySelect = document.getElementById('barangay');
+        changeStreetDropdown(barangaySelect.value);
+    });
+
+    
+    // validation
+    function validateRouting() {
+        const brgy = document.getElementById('barangay').value;
+        const street = document.getElementById('street').value;
+        const msgEl = document.getElementById('validationMsg');
+
+        if (!brgy) {
+            if (msgEl) msgEl.textContent = 'Please select a barangay.';
+            else alert('Please select a barangay.');
+            document.getElementById('barangay').focus();
+            return false;
+        }
+        if (!street) {
+            if (msgEl) msgEl.textContent = 'Please select a street.';
+            else alert('Please select a street.');
+            document.getElementById('street').focus();
+            return false;
+        }
+        if (msgEl) msgEl.textContent = '';
+        return true;
+    }
+
+</script>
 
 </body>
 <style> 
@@ -212,5 +270,3 @@
 </style>
 
 </html>
-
-
