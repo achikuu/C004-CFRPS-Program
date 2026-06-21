@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Portal Access - One Cainta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="header-stylesheet.css" />
+    <script src="scriptforlogin.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <div class="logo">
+          <img
+            src="assets/LOGO.png"
+            alt="CFRPS-LOGO"
+            width="100"
+            height="100"
+            class="nav-logo"
+          />
+          <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="TAB1-home.html" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB4-login.html" class="nav-link">LOGIN</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="auth-card-scaffold">
+        <div class="auth-card-head">
+          <h3>Would you like to save this information?</h3>
+          <p>Log in or create accounts to synchronize tracking history.</p>
+        </div>
+
+        <p id="error-message"></p>
+        <form id="cfrps-login-form" novalidate>
+          <div class="form-row">
+            <label for="email-input">Email</label>
+            <input
+              type="text"
+              id="email-input"
+              class="form-control-input"
+              placeholder="andee.jimena@gmail.com"
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="password-input">Password Account Key</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="password-input"
+                class="form-control-input"
+                placeholder="••••••"
+              />
+              <button
+                type="button"
+                class="password-reveal-trigger"
+                onclick="togglePasswordVisibility('password-input')"
+                aria-label="Toggle password visibility"
+              >
+                <svg
+                  id="eye-icon"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="action-container-stack">
+            <button type="submit" class="btn-portal-action btn-submit">
+              Sign In
+            </button>
+
+            <a href="TAB5-register.html" class="btn-portal-action btn-cancel">
+              Create a New Account (Register)
+            </a>
+
+            <a href="TAB1-home.html" class="btn-portal-action btn-cancel">
+              Cancel & Return to Home Page
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <style>
+      main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(189, 232, 245, 0.3) 100%
+        );
+      }
+
+      .auth-card-scaffold {
+        background: #ffffff;
+        width: 100%;
+        max-width: 440px;
+        border-radius: 16px;
+        padding: 40px 35px;
+        border: 1px solid rgba(73, 136, 196, 0.25);
+        box-shadow:
+          0 10px 25px -5px rgba(15, 40, 84, 0.1),
+          0 8px 16px -6px rgba(15, 40, 84, 0.05);
+      }
+
+      .auth-card-head {
+        text-align: left;
+        margin-bottom: 28px;
+      }
+
+      .auth-card-head h3 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--cainta-dark-navy);
+        letter-spacing: -0.5px;
+      }
+
+      .auth-card-head p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+
+      .form-row {
+        margin-bottom: 20px;
+      }
+
+      .form-row label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--cainta-royal-blue);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .form-control-input {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        color: var(--text-dark);
+        background-color: #f8fafc;
+        outline: none;
+        transition: all 0.15s ease-in-out;
+      }
+
+      .form-control-input:focus {
+        border-color: var(--cainta-mid-blue);
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(73, 136, 196, 0.15);
+      }
+
+      .form-control-input.pass-field {
+        padding-right: 44px;
+      }
+
+      .password-reveal-trigger {
+        position: absolute;
+        right: 14px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .password-reveal-trigger:hover {
+        color: var(--cainta-royal-blue);
+      }
+
+      .password-reveal-trigger svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .action-container-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .btn-portal-action {
+        width: 100%;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-align: center;
+        transition: all 0.15s ease-in-out;
+      }
+
+      .btn-portal-action.btn-submit {
+        background-color: #9cb2d4;
+        color: #0b3c66;
+        box-shadow: 0 4px 6px -1px rgba(15, 40, 84, 0.2);
+      }
+
+      .btn-portal-action.btn-submit:hover {
+        background-color: #0b3c66;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 12px -2px rgba(15, 40, 84, 0.25);
+      }
+
+      .btn-portal-action.btn-submit:active {
+        transform: translateY(0);
+      }
+
+      .btn-portal-action.btn-cancel {
+        background-color: #e2e8f0;
+        color: #475569;
+      }
+
+      .btn-portal-action.btn-cancel:hover {
+        background-color: #cbd5e1;
+        color: var(--text-dark);
+      }
+
+      .form-row.incorrect label,
+      .input-wrapper.incorrect ~ label,
+      .form-row:has(.incorrect) label {
+        color: rgb(179, 108, 108) !important;
+      }
+
+      .form-row.incorrect .form-control-input,
+      .input-wrapper.incorrect .form-control-input {
+        border-color: rgb(179, 108, 108) !important;
+        background-color: rgba(179, 108, 108, 0.1) !important;
+        color: #7f1d1d !important;
+      }
+
+      #error-message {
+        color: rgb(179, 108, 108) !important;
+      }
+    </style>
+  </body>
+</html>
+
+```

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFRPS - Assessment History</title>
+    <link rel="stylesheet" href="header-stylesheet.css">
+
+    <style>
+        .main-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid #D7D7D7;
+            box-shadow: 0 10px 25px -5px rgba(39, 63, 79, 0.05);
+        }
+
+        .page-header {
+            border-bottom: 2px solid #D7D7D7;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .page-header h2 {
+            color: #273F4F;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .status-card {
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 32px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .status-card:hover {
+            box-shadow: 0 10px 20px rgba(39, 63, 79, 0.05);
+            border-color: #447D9B;
+        }
+
+        .decision-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1C4D8D;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 12px;
+            margin: 0 0 4px 0;
+        }
+
+        .entry-item {
+            line-height: 1.4;
+        }
+
+        .entry-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .entry-value {
+            color: #1E293B;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .clear-btn {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: 0.2s;
+        }
+
+        .clear-btn:hover {
+            background-color: #fca5a5;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <header>
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="assets/LOGO.png" alt="CFRPS-LOGO" width="100" height="100" class="nav-logo">
+                <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="TAB1-home.html" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="TAB2-about-us.html" class="nav-link">ABOUT US</a></li>
+                <li class="nav-item"><a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a></li>
+                <li class="nav-item"><a href="TAB4-login.html" class="nav-link">LOGIN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h2>Vulnerability Assessment Log History</h2>
+            <p>Historical record tracking environmental exposures and flood risk classifications submitted within this terminal browser session.</p>
+        </div>
+
+        <div class="directory-grid" id="historyLogGrid">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderHistoryGrid();
+        });
+
+        function renderHistoryGrid() {
+            const gridContainer = document.getElementById("historyLogGrid");
+            const rescueHistory = JSON.parse(localStorage.getItem('rescueHistory')) || [];
+
+            if (rescueHistory.length === 0) {
+                gridContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; color: #64748b; padding: 40px; background: white; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                        <h3>No assessment entries found</h3>
+                        <p>Complete a location profile and risk evaluation questionnaire to produce analytics tracking elements.</p>
+                    </div>`;
+                return;
+            }
+
+            gridContainer.innerHTML = ""; 
+
+            rescueHistory.forEach((entry, index) => {
+                let riskColorStyle = "#16a34a"; 
+                if (entry.riskClassification.includes("High Risk")) {
+                    riskColorStyle = "#dc2626"; 
+                }
+
+                const cardHTML = `
+                    <div class="status-card">
+                        <h3 class="decision-title">Record Entry #${rescueHistory.length - index}</h3>
+                        
+                        <div class="entry-item">
+                            <span class="entry-label">TARGET BARANGAY</span>
+                            <span class="entry-value" style="font-size: 1.1rem; font-weight: 700; color: #1E293B;">${entry.barangay}</span>
+                        </div>
+                        
+                        <div class="entry-item">
+                            <span class="entry-label">STREET ZONE LOCATION</span>
+                            <span class="entry-value">${entry.street}</span>
+                        </div>
+                        
+                        <div class="entry-item">
+                            <span class="entry-label">EVALUATED RISK RATING</span>
+                            <span class="entry-value" style="color: ${riskColorStyle}; font-weight: 700;">${entry.riskClassification}</span>
+                        </div>
+                        
+                        <div class="entry-item">
+                            <span class="entry-label">GENERATION TIMESTAMP</span>
+                            <span class="entry-value" style="color: #64748b; font-size: 0.85rem;">${entry.dateLogged}</span>
+                        </div>
+                    </div>
+                `;
+                gridContainer.innerHTML += cardHTML;
+            });
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CFRPS - Risk Analysis</title>
+
+    <link rel="stylesheet" href="header-stylesheet.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <div class="logo">
+          <img
+            src="assets/LOGO.png"
+            alt="CFRPS-LOGO"
+            width="100"
+            height="100"
+            class="nav-logo"
+          />
+          <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="TAB1-home.html" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB4-login.html" class="nav-link">LOGIN</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <div class="page-header">
+        <h2>Risk Analysis &amp; Decision Dashboard</h2>
+        <p>
+          Calculated system tiers and prioritized action protocols based on
+          household vulnerabilities.
+        </p>
+      </div>
+
+      <div class="risk-card">
+        <div class="card-header-row">
+          <span class="badge-high">High Risk</span>
+          <span class="status-term"
+            >Critical Priority Rescue (Life-Threatening)</span
+          >
+        </div>
+        <p class="description-text">
+          Immediate dispatch of priority tactical rescue teams and watercraft.
+          The household is designated as trapped with extreme mobility blockages
+          or contains an unaccompanied vulnerable minor.
+        </p>
+        <div class="details-section">
+          <h4>📋 What to do:</h4>
+          <ul>
+            <li>
+              <strong>Due to Inability to Evacuate (Q6):</strong> Clear
+              immediate physical pathways to structural heights or roofs to
+              await watercraft deployment.
+            </li>
+            <li>
+              <strong>Due to Stranded Minor Status (Q7):</strong> Secure vital
+              personal identification and school documents in a strapped,
+              body-worn pouch.
+            </li>
+          </ul>
+        </div>
+        <div class="alert-box">
+          <strong>🚨 Emergency Notice:</strong> Structural entrapment
+          identified. Call national responders at
+          <strong>911</strong> immediately.
+        </div>
+      </div>
+
+      <div class="action-routing">
+        <a href="PAGE2-risk-assessment.html" class="btn btn-back">Back</a>
+        <a href="PAGE4-save-information.html" class="btn btn-next">Next</a>
+      </div>
+    </main>
+    <style>
+      /* CSS to make the main content container scrollable */
+      .main-container {
+        max-width: 800px;
+        width: 90%;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 12px;
+        border: 1px solid #d7d7d7;
+        box-shadow: 0 10px 30px -5px rgba(39, 63, 79, 0.05);
+
+        /* Scroll configuration */
+        max-height: 75vh;
+        overflow-y: auto;
+        padding-right: 20px;
+      }
+
+      /* Custom scrollbar track to match your system theme */
+      .main-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .main-container::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+      .main-container::-webkit-scrollbar-thumb {
+        background: #447d9b;
+        border-radius: 10px;
+      }
+      .main-container::-webkit-scrollbar-thumb:hover {
+        background: #273f4f;
+      }
+
+      .page-header {
+        border-bottom: 2px solid #d7d7d7;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+      }
+
+      .page-header h2 {
+        color: #273f4f;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      /* Simplified Clean Layout Cards */
+      .risk-card {
+        border: 1px solid #d7d7d7;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        background: #ffffff;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+      }
+
+      .card-header-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 10px;
+      }
+
+      /* Risk Level Term Badges */
+      .badge-high {
+        background-color: #fee2e2;
+        color: #991b1b;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        border: 1px solid #fca5a5;
+        text-transform: uppercase;
+      }
+
+      .badge-low {
+        background-color: #fffdb5;
+        color: #856404;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        border: 1px solid #ffeeba;
+        text-transform: uppercase;
+      }
+
+      .badge-stable {
+        background-color: #e2e8f0;
+        color: #475569;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        border: 1px solid #cbd5e1;
+        text-transform: uppercase;
+      }
+
+      .status-term {
+        font-weight: 700;
+        color: #273f4f;
+        font-size: 1.1rem;
+      }
+
+      .description-text {
+        font-size: 0.95rem;
+        color: #334155;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+
+      /* Simplified details lists */
+      .details-section {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #e2e8f0;
+      }
+
+      .details-section h4 {
+        color: #273f4f;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+
+      .details-section ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+
+      .details-section li {
+        font-size: 0.85rem;
+        margin-bottom: 2px;
+        color: #475569;
+      }
+
+      .alert-box {
+        margin-top: 12px;
+        padding: 10px 14px;
+        background-color: #fee2e2;
+        border: 1px solid #fca5a5;
+        border-radius: 6px;
+        color: #991b1b;
+        font-size: 0.85rem;
+      }
+
+      /* Navigation buttons array layout */
+      .action-routing {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #d7d7d7;
+      }
+
+      .btn {
+        display: inline-flex;
+        padding: 10px 24px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .btn-back {
+        background: #ffffff;
+        color: #273f4f;
+        border: 2px solid #d7d7d7;
+      }
+
+      .btn-back:hover {
+        background: #f8fafc;
+      }
+
+      .btn-next {
+        background: #fe7743;
+        color: #ffffff;
+        border: 2px solid #fe7743;
+      }
+
+      .btn-next:hover {
+        background: #e05c28;
+      }
+    </style>
+  </body>
+</html>

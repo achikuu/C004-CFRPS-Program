@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFRPS - Risk Assessment</title>
+
+    <link rel="stylesheet" href="header-stylesheet.css">
+    <style>
+        .hero-section {
+            position: relative;
+            height: calc(100vh - 100px); 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/background image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.7; 
+            z-index: 1; 
+        }
+
+        .hero-logo, 
+        .hero-title, 
+        .buttons {
+            position: relative;
+            z-index: 2; 
+        }
+
+        .hero-section .hero-logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            color: #0b3c66; 
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .buttons {
+            display: block;
+        }
+
+        .btn-click-here {
+            display: inline-block;
+            background-color: #9cb2d4; 
+            color: #0b3c66; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 12px 40px;
+            border-radius: 50px; 
+            border: 2px solid #7c93ba; 
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .btn-click-here:hover {
+            background-color: #8fa7cc; 
+        }
+    </style>
+</head>
+
+<body>
+    
+    <header>
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="assets/LOGO.png" alt="CFRPS-LOGO" width="100" height="100" class="nav-logo">
+                <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="TAB1-home.html" class="nav-link">HOME</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="TAB4-login.html" class="nav-link">LOGIN</a> 
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section class="hero-section">
+        <img src="assets/LOGO.png" alt="CFRPS Logo" class="hero-logo">
+        <h1 class="hero-title">
+            CFRPS: CAINTA FLOOD RESCUE <br>
+            PRIORITIZATION SYSTEM
+        </h1>
+        <div class="buttons">
+            <a href="PAGE1-enter-location.html" class="btn-click-here">Take Risk Assessment</a>
+            <a href="TAB6-view-analyses.html" class="btn-click-here">View Risk Analyses</a>
+        </div>
+    </section>
+
+</body>
+</html>

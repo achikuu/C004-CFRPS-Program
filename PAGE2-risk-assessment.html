@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CFRPS - Risk Assessment</title>
+
+    <link rel="stylesheet" href="header-stylesheet.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <div class="logo">
+          <img
+            src="assets/LOGO.png"
+            alt="CFRPS-LOGO"
+            width="100"
+            height="100"
+            class="nav-logo"
+          />
+          <h1 class="logo-text">Cainta Flood Rescue Prioritization System</h1>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="TAB1-home.html" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB2-about-us.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB3-hotlines.html" class="nav-link">HOTLINES</a>
+          </li>
+          <li class="nav-item">
+            <a href="TAB4-login.html" class="nav-link">LOGIN</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <div class="page-header">
+        <h2>Vulnerability &amp; Environmental Risk Assessment</h2>
+        <p>
+          Please check the box next to each question if the statement is
+          <strong>TRUE</strong> for the household profile.
+        </p>
+      </div>
+
+      <form
+        id="risk-assessment-form"
+        action="PAGE3-risk-analysis.html"
+        method="GET"
+      >
+        <label class="question-card" for="p1-low-lying">
+          <div class="question-number">1</div>
+          <div class="question-text">
+            Is the household located in a low-lying area?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p1-low-lying"
+              name="p1_low_lying"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p2-priority">
+          <div class="question-number">2</div>
+          <div class="question-text">
+            Does the household require priority rescue?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p2-priority"
+              name="p2_priority"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p3-vulnerable">
+          <div class="question-number">3</div>
+          <div class="question-text">
+            Does the household have elderly, children, or disabled members?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p3-vulnerable"
+              name="p3_vulnerable"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p4-river">
+          <div class="question-number">4</div>
+          <div class="question-text">
+            Is the household located near a river?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p4-river"
+              name="p4_river"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p5-warning">
+          <div class="question-number">5</div>
+          <div class="question-text">
+            Has an evacuation warning been officially issued/sent?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p5-warning"
+              name="p5_warning"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p6-immobility">
+          <div class="question-number">6</div>
+          <div class="question-text">
+            Is the household unable to evacuate immediately on their own?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p6-immobility"
+              name="p6_immobility"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p7-minor">
+          <div class="question-number">7</div>
+          <div class="question-text">
+            Is the resident currently alone and a minor?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p7-minor"
+              name="p7_minor"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p8-medical">
+          <div class="question-number">8</div>
+          <div class="question-text">
+            Does anyone in the household require immediate medical assistance?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p8-medical"
+              name="p8_medical"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <label class="question-card" for="p9-vehicle">
+          <div class="question-number">9</div>
+          <div class="question-text">
+            Does the household own a functional vehicle available for
+            evacuation?
+          </div>
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="p9-vehicle"
+              name="p9_vehicle"
+              class="binary-input"
+            />
+          </div>
+        </label>
+
+        <div class="action-routing">
+          <a href="PAGE1-enter-location copy.html" class="btn btn-back">Back</a>
+          <button type="submit" class="btn btn-next">Analyze Risk Level</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
+
+<script>
+  const form = document.getElementById("risk-assessment-form");
+  form.addEventListener("submit", function (event) {
+    const checked = document.querySelector(".binary-input:checked");
+
+    if (!checked) {
+      event.preventDefault();
+      alert("Please check at least one true statement!");
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const totalChecked = form.querySelectorAll(".binary-input:checked").length;
+    const p1 = document.getElementById("p1-low-lying").checked;
+    const p2 = document.getElementById("p2-priority").checked;
+    const p3 = document.getElementById("p3-vulnerable").checked;
+    const p4 = document.getElementById("p4-river").checked;
+    const p5 = document.getElementById("p5-warning").checked;
+    const p6 = document.getElementById("p6-immobility").checked;
+    const p7 = document.getElementById("p7-minor").checked;
+    const p8 = document.getElementById("p8-medical").checked;
+    const p9 = document.getElementById("p9-vehicle").checked;
+
+    let targetAction = "PAGE3-risk-analysis.html";
+    let riskLevelText = "Low Risk - Monitor and Prepare";
+
+    if (totalChecked >= 9 || (p6 && p8 && p9)) {
+        targetAction = "PAGE3-HIGH-RISK-CRITICAL.html";
+        riskLevelText = "High Risk - Critical Priority Rescue";
+    } else if (p8) {
+        targetAction = "PAGE3-HIGH-RISK-MEDICAL.html";
+        riskLevelText = "High Risk - Medical Priority Extraction";
+    } else if ((p1 && p4) || p5 || p2 || p3) {
+        targetAction = "PAGE3-HIGH-RISK-STANDARD.html";
+        riskLevelText = "High Risk - Standard Rescue Deployment";
+    } else if (p6 || p7 || p9) {
+        targetAction = "PAGE3-LOW-RISK-TRIGGER.html";
+        riskLevelText = "Low Risk - Specific Advisory Triggered";
+    } else {
+        targetAction = "PAGE3-LOW-RISK-LOG.html";
+        riskLevelText = "Low Risk - Stable Baseline Profile";
+    }
+
+    const storedBrgy = localStorage.getItem('temp_barangay') || "Unknown Barangay";
+    const storedStreet = localStorage.getItem('temp_street') || "Unknown Street";
+    const timestamp = new Date().toLocaleString();
+
+    let rescueHistory = JSON.parse(localStorage.getItem('rescueHistory')) || [];
+    
+    const newEntry = {
+        barangay: storedBrgy,
+        street: storedStreet,
+        riskClassification: riskLevelText,
+        dateLogged: timestamp
+    };
+
+    rescueHistory.unshift(newEntry);
+    localStorage.setItem('rescueHistory', JSON.stringify(rescueHistory));
+
+    window.location.href = targetAction;
+});
+</script>
