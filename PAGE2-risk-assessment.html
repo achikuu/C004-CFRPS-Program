@@ -226,21 +226,21 @@
     let targetAction = "PAGE3-risk-analysis.html";
     let riskLevelText = "Low Risk - Monitor and Prepare";
 
-    if (totalChecked >= 9 || (p6 && p8 && p9)) {
-        targetAction = "PAGE3-HIGH-RISK-CRITICAL.html";
-        riskLevelText = "High Risk - Critical Priority Rescue";
-    } else if (p8) {
-        targetAction = "PAGE3-HIGH-RISK-MEDICAL.html";
-        riskLevelText = "High Risk - Medical Priority Extraction";
-    } else if ((p1 && p4) || p5 || p2 || p3) {
-        targetAction = "PAGE3-HIGH-RISK-STANDARD.html";
-        riskLevelText = "High Risk - Standard Rescue Deployment";
-    } else if (p6 || p7 || p9) {
-        targetAction = "PAGE3-LOW-RISK-TRIGGER.html";
-        riskLevelText = "Low Risk - Specific Advisory Triggered";
+    if (totalChecked >= 9 || p6 || p7) {
+      targetAction = "PAGE3-HIGH-RISK-CRITICAL.html";
+      riskLevelText = "High Risk - Critical Priority Rescue";
+    } else if (p3 || p8) {
+      targetAction = "PAGE3-HIGH-RISK-MEDICAL.html";
+      riskLevelText = "High Risk - Medical Priority Extraction";
+    } else if ((p1 && p4) || (totalChecked < 1 && !p9)) {
+      targetAction = "PAGE3-HIGH-RISK-STANDARD.html";
+      riskLevelText = "High Risk - Standard Rescue Deployment";
+    } else if (p1 || p4 || (p5 && !p9)) {
+      targetAction = "PAGE3-LOW-RISK-TRIGGER.html";
+      riskLevelText = "Low Risk - Specific Advisory Triggered";
     } else {
-        targetAction = "PAGE3-LOW-RISK-LOG.html";
-        riskLevelText = "Low Risk - Stable Baseline Profile";
+      targetAction = "PAGE3-LOW-RISK-LOG.html";
+      riskLevelText = "Low Risk - Stable Baseline Profile";
     }
 
     const storedBrgy = localStorage.getItem('temp_barangay') || "Unknown Barangay";
